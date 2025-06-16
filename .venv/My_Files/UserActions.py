@@ -9,11 +9,11 @@ def myuserFullInfo(my_login):
     result = reqDict1(script)
     return result
 
-def changePass(login,new_pwd):
-    script = ("""update public.persons set password = '%s' where login like '%s';""" % (new_pwd, login))
+def changePass_user (my_login,new_pwd):
+    script = ("""update public.persons set password = '%s' where login like '%s';""" % (new_pwd, my_login))
     reqSimp(script)
-    result = ('Пароль успешно сменен!\n')
-    return result
+    change_res = ('Пароль успешно сменен!\n')
+    return change_res
 
 def allUsersNames():
     script = ("""select fio from public.persons;""")

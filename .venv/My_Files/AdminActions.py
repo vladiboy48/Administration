@@ -26,7 +26,7 @@ def changeANYadm(enter_login,enter_pole,new_value):
     result = reqDict1(script)
     if type(result) == psycopg2.extras.RealDictRow:
         try:
-            script = ("""update public.persons set %s = '%s' where login like '%s' ;""" % (enter_pole, new_value, login,))
+            script = ("""update public.persons set %s = '%s' where login like '%s' ;""" % (enter_pole, new_value, enter_login,))
             reqSimp(script)
         except Exception as owibka:
             change_result = owibka

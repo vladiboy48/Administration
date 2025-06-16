@@ -9,8 +9,9 @@ def avtorization(login,pwd):
     if type(result) == psycopg2.extras.RealDictRow:
         avtrz_status = result.get('role')
     else:
-        avtrz_status = ('--Неверный лог/пасс--')
+        avtrz_status = ('--Неверный логин/пароль--')
     return avtrz_status
+
 def registration(fio,login,pwd):
     try:
         script = ("""insert into public.persons (fio,login,password) values ('%s', '%s', '%s');""" % (fio, login, pwd))

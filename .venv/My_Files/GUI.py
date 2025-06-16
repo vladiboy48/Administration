@@ -2,7 +2,7 @@ import sys
 import flet
 from MMactions import registration, avtorization
 from AdminActions import allusersFullInfo, deleteUser, changeANYadm
-from UserActions import myuserFullInfo, changePass, allUsersNames
+from UserActions import myuserFullInfo, changePass_user, allUsersNames
 from pprint import pprint
 
 
@@ -53,7 +53,7 @@ def main(page1: flet.Page):
         elif avtrz_status == '--Неверный лог/пасс--':
             page1.add(
                 flet.Row([
-                    flet.Text(value=avtrz_status)], alignment=flet.MainAxisAlignment.CENTER
+                    flet.Text(value=avtrz_status, color = "red")], alignment=flet.MainAxisAlignment.CENTER
                 )
             )
             page1.update()
@@ -129,7 +129,7 @@ def main(page1: flet.Page):
             )
         )
 
-    def changeAny(a): #Не реализовано доделать изменение поля (админка)
+    def changeAny(a):
         def changeAnyhere(a):
             change_res = changeANYadm(enter_login.value,enter_pole.value,new_value.value)
             page1.add(
@@ -139,7 +139,7 @@ def main(page1: flet.Page):
             )
         enter_login = flet.TextField(label='Задай login юзера, которого необходимо изменить', value='', width=300)
         enter_pole = flet.TextField(label='Задай поле которое хочешь поменять', value='', width=300)
-        new_value = flet.TextField(label='Задай новон значение этого поля', value='', width=300)
+        new_value = flet.TextField(label='Задай новое значение этого поля', value='', width=300)
         fio.value = ''
         login.value = ''
         pwd.value = ''
@@ -176,7 +176,7 @@ def main(page1: flet.Page):
         )
         page1.update()
 
-    def changePass_here(a): #Не реализовано  доделать изменение поля (админка)
+    def changePass(a):
         pass
 
     def allUsersNames_here(a):
@@ -199,7 +199,7 @@ def main(page1: flet.Page):
     page1.title = "Loin-dialog"
     page1.theme_mode = 'light'
     page1.vertical_alignment = flet.MainAxisAlignment.CENTER
-    page1.g_alignment = flet.MainAxisAlignment.CENTER
+    page1.horizontal_alignment = flet.MainAxisAlignment.CENTER
     page1.window.height = 600
     page1.window.width = 400
     page1.window.resizable = True
@@ -221,7 +221,7 @@ def main(page1: flet.Page):
 
     # Кнопки юзерского меню
     user_bnt_1 = flet.ElevatedButton(text='1. Полная инфа про мой аккаунт.', width=200, on_click=myuserFullInfo_here)
-    user_bnt_2 = flet.ElevatedButton(text='2. Сменить пароль', width=200, on_click=changePass_here)
+    user_bnt_2 = flet.ElevatedButton(text='2. Сменить пароль(coming soon)', width=200, on_click=changePass)
     user_bnt_3 = flet.ElevatedButton(text='3. Список всех пользователей', width=200, on_click=allUsersNames_here)
 
     panel_MM = flet.Row((
@@ -231,7 +231,7 @@ def main(page1: flet.Page):
                     (flet.IconButton(flet.icons.SUNNY, on_click=changeTheme)),
                     (flet.Text('<--Сменить тему'))], alignment=flet.MainAxisAlignment.CENTER),
                 flet.Text('Добро пожаловать в главное меню!'),
-                flet.Text('Собстна летс го'),
+                flet.Text('Введите Логин и Пароль!'),
                 login,
                 pwd,
                 btn_avtrz
@@ -248,7 +248,6 @@ def main(page1: flet.Page):
                         (flet.IconButton(flet.icons.SUNNY, on_click=changeTheme)),
                         (flet.Text('<--Сменить тему'))], alignment=flet.MainAxisAlignment.CENTER),
                     flet.Text('--Окно регистрации--\nЗаполни все поля и кнопка станет активна!'),
-                    flet.Text('Собстна вводи'),
                     fio,
                     login,
                     pwd,
@@ -281,7 +280,7 @@ def main(page1: flet.Page):
                     flet.Row([
                         (flet.IconButton(flet.icons.SUNNY, on_click=changeTheme)),
                         (flet.Text('<--Сменить тему'))], alignment=flet.MainAxisAlignment.CENTER),
-                    flet.Text('-->Юзеркская панель--\nВам, как пользователю, доступны слдедующие действия'),
+                    flet.Text('-->Юзеркская панель--\nВам, как пользователю, доступны следующие действия'),
                     user_bnt_1,
                     user_bnt_2,
                     user_bnt_3
