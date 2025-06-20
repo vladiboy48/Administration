@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6be0ee69-e759-4550-9762-90cc49ebf1b1" name="Changes" comment="1.Исправлен вывод информационных сообщений об успешном/не успешном исполнении скриптов.&#10;2.Реализовано изменение пароля пользователем в ЮзерПанели&#10;3.Реализован &quot;Красивый&quot; вывод справочной инфморации.">
+    <list default="true" id="6be0ee69-e759-4550-9762-90cc49ebf1b1" name="Changes" comment="Мелкие правки">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.venv/My_Files/GUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/My_Files/GUI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.venv/My_Files/UserActions.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/My_Files/UserActions.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +112,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750408809235</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Мелкие правки">
+      <option name="closed" value="true" />
+      <created>1750422625838</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1750422625838</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -133,6 +139,7 @@
     <MESSAGE value="Второй" />
     <MESSAGE value="Актуализация" />
     <MESSAGE value="1.Исправлен вывод информационных сообщений об успешном/не успешном исполнении скриптов.&#10;2.Реализовано изменение пароля пользователем в ЮзерПанели&#10;3.Реализован &quot;Красивый&quot; вывод справочной инфморации." />
-    <option name="LAST_COMMIT_MESSAGE" value="1.Исправлен вывод информационных сообщений об успешном/не успешном исполнении скриптов.&#10;2.Реализовано изменение пароля пользователем в ЮзерПанели&#10;3.Реализован &quot;Красивый&quot; вывод справочной инфморации." />
+    <MESSAGE value="Мелкие правки" />
+    <option name="LAST_COMMIT_MESSAGE" value="Мелкие правки" />
   </component>
 </project>
