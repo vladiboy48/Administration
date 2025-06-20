@@ -260,7 +260,7 @@ def main(page1: flet.Page):
 
     # Кнопки юзерского меню
     user_bnt_1 = flet.ElevatedButton(text='1. Полная инфа про мой аккаунт.', width=200, on_click=myuserFullInfo_here)
-    user_bnt_2 = flet.ElevatedButton(text='2. Сменить пароль(coming soon)', width=200, on_click=changePass)
+    user_bnt_2 = flet.ElevatedButton(text='2. Сменить пароль', width=200, on_click=changePass)
     user_bnt_3 = flet.ElevatedButton(text='3. Список всех пользователей', width=200, on_click=allUsersNames_here)
 
     panel_MM = flet.Row((
@@ -303,7 +303,7 @@ def main(page1: flet.Page):
                     flet.Row([
                         (flet.IconButton(flet.icons.SUNNY, on_click=changeTheme)),
                         (flet.Text('<--Сменить тему'))], alignment=flet.MainAxisAlignment.CENTER),
-                    flet.Text('--Админская панель--\nВам,как админу, доступны следующие действия:'),
+                    flet.Text('--Админская панель--\nВам доступны следующие действия:'),
                     adm_btn_1,
                     adm_btn_2,
                     adm_btn_3
@@ -319,7 +319,7 @@ def main(page1: flet.Page):
                     flet.Row([
                         (flet.IconButton(flet.icons.SUNNY, on_click=changeTheme)),
                         (flet.Text('<--Сменить тему'))], alignment=flet.MainAxisAlignment.CENTER),
-                    flet.Text('-->Юзеркская панель--\nВам, как пользователю, доступны следующие действия'),
+                    flet.Text('-->Юзеркская панель--\nВам доступны следующие действия'),
                     user_bnt_1,
                     user_bnt_2,
                     user_bnt_3

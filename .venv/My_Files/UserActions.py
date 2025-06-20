@@ -23,7 +23,6 @@ def changePass_user (my_login,new_pwd):
     return change_res
 
 def allUsersNames():
-    script = ("""select fio from public.persons;""")
-    result = reqDictn(script)
-    return result
-
+    script = ("""select pers_id,fio from public.persons order by pers_id asc;""")
+    result_json = reqDictn(script)
+    return result_json
