@@ -1,7 +1,8 @@
 import sys
 import psycopg2
 import psycopg2.extras
-from pprint import pprint
+import json
+from pprint import pprint, pformat
 
 def connect():
     user = "postgres"
@@ -29,19 +30,30 @@ def reqDict1(script):
 
 def reqDictn(script):
     connection = connect()
-    cur = connection.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
+    cur = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     cur.execute(script)
     result = cur.fetchall()
+    result_json = pformat(json.loads(json.dumps(result, ensure_ascii=False).encode(encoding='utf8')))
     connection.close()
     cur.close()
-    return result
+    return result_json
+
 
 def reqSimp(script):
-    connection = connect()
-    cur = connection.cursor()
-    print(cur)
-    cur.execute(script)
-    print(cur.execute(script))
-    connection.close()
-    cur.close()
+    try:
+        connection = connect()
+        cur = connection.cursor()
+        cur.execute(script)
+    except psycopg2.Error as e:
+        print(e.pgerror)
+        result = 'negative'
+        connection.close()
+        cur.close()
+        return result
+    else:
+        result = 'positive'
+        connection.close()
+        cur.close()
+        return result
+
 

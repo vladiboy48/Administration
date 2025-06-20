@@ -7,30 +7,30 @@ from ConfigDB import connect, reqDict1, reqDictn,reqSimp
 
 def allusersFullInfo():
     script = ("""select * from persons order by pers_id asc;""")
-    result = reqDictn(script)
-    return result
+    result_json = reqDictn(script)
+    return result_json
 
 
 def deleteUser(enter_login):
-    try:
-        script = ("""delete from public.persons where login like '%s';""" % (enter_login))
+    script = ("""select * from persons where login = '%s';""") % (enter_login) #Проверка наличия пользователя в системе
+    result = reqDict1(script)
+    if type(result) == psycopg2.extras.RealDictRow:
+        script = ("""delete from public.persons where login = '%s';""" % (enter_login))
         reqSimp(script)
-    except Exception as owibka:
-        del_result = '--Задайте другой логин - такого пользователя не существует!--'
+        del_result = 'positive'
     else:
-        del_result = 'Удаление прошло успешно!'
+        del_result = 'negative'
     return del_result
 
 def changeANYadm(enter_login,enter_pole,new_value):
     script = ("""select * from persons where login = '%s';""") % (enter_login)
     result = reqDict1(script)
     if type(result) == psycopg2.extras.RealDictRow:
-        try:
-            script = ("""update public.persons set %s = '%s' where login like '%s' ;""" % (enter_pole, new_value, enter_login,))
-            reqSimp(script)
-        except Exception as owibka:
-            change_result = owibka
-        else:
+        script = ("""update public.persons set %s = '%s' where login like '%s' ;""" % (enter_pole, new_value, enter_login,))
+        result= reqSimp(script)
+        if result == 'negative':
+            change_result = 'При апдейте возникла ошибка\n Скорректируйте значения и проверьте логи.'
+        elif result == 'positive':
             change_result = 'Апдейт успешный!'
     else:
         change_result = 'Такого пользователя не существует'

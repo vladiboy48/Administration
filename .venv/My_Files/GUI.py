@@ -50,7 +50,7 @@ def main(page1: flet.Page):
             navigate_btns(3)
         elif avtrz_status == 'user':
             navigate_btns(4)
-        elif avtrz_status == '--Неверный лог/пасс--':
+        elif avtrz_status == '--Неверный логин/пароль--':
             page1.add(
                 flet.Row([
                     flet.Text(value=avtrz_status, color = "red")], alignment=flet.MainAxisAlignment.CENTER
@@ -60,14 +60,19 @@ def main(page1: flet.Page):
 
     def registratoin_here(a):
         reg_status = registration(fio.value, login.value, pwd.value)
-        page1.add(
-            flet.Row([
-                flet.Text(value=reg_status)], alignment=flet.MainAxisAlignment.CENTER
-            )
-        )
         if reg_status == 'Регистрация прошла успешно!':
+            page1.add(
+                flet.Row([
+                    flet.Text(value=reg_status, color = "green")], alignment=flet.MainAxisAlignment.CENTER
+                )
+            )
             page1.update()
         elif reg_status == '--Задайте другой логин -, такой уже существует--':
+            page1.add(
+                flet.Row([
+                    flet.Text(value=reg_status, color = "red")], alignment=flet.MainAxisAlignment.CENTER
+                )
+            )
             login.value = ''
             page1.update()
 
@@ -79,6 +84,7 @@ def main(page1: flet.Page):
         page1.update()
 
     def valiadtion_reg(a):  # Проверяем заполненность полей
+        page1.update()
         if all([login.value, pwd.value, fio.value]):
             btn_reg.disabled = False
         else:
@@ -88,29 +94,34 @@ def main(page1: flet.Page):
     def allusersFullInfo_here(a):
         result = allusersFullInfo()
         page1.add(
-            flet.Row(
-                [
-                    flet.Column(
-                        [
-                            flet.Text(value=('Тут пока не красиво')),
-                            flet.Text(value=result)
-                        ], alignment=flet.MainAxisAlignment.CENTER
-                    )
-                ]
+            flet.Row([
+                flet.Text(value=result)]
             )
         )
+        page1.window.height = 800
         page1.update()
 
     def deletion(a):
         def delete_here(a):
             del_result = deleteUser(enter_login.value)
-            page1.add(
-                flet.Row([
-                    flet.Text(value=del_result)], alignment=flet.MainAxisAlignment.CENTER
-                )
-            )
-            if del_result == '--Задайте другой логин - такого пользователя не существует!--':
+            if del_result == 'negative':
+                del_result = '--Задайте другой логин\n - Такого пользователя не существует!--'
                 login.value = ''
+                page1.add(
+                    flet.Row([
+                        flet.Text(value=del_result,color='red')], alignment=flet.MainAxisAlignment.CENTER
+                    )
+                )
+                page1.update()
+            elif del_result == 'positive':
+                del_result = 'Удаление прошло успешно!'
+                login.value = ''
+                page1.add(
+                    flet.Row([
+                        flet.Text(value=del_result,color='green')], alignment=flet.MainAxisAlignment.CENTER
+                    )
+                )
+                page1.update()
 
         enter_login = flet.TextField(label='Задай login юзера, которого необходимо удалить', value='', width=300)
         fio.value = ''
@@ -132,11 +143,21 @@ def main(page1: flet.Page):
     def changeAny(a):
         def changeAnyhere(a):
             change_res = changeANYadm(enter_login.value,enter_pole.value,new_value.value)
-            page1.add(
-                flet.Row([
-                    flet.Text(value=change_res)], alignment=flet.MainAxisAlignment.CENTER
+            if change_res == 'При апдейте возникла ошибка\n Скорректируйте значения и проверьте логи.' or change_res == 'Такого пользователя не существует':
+                page1.add(
+                    flet.Row([
+                        flet.Text(value=change_res,color='red')], alignment=flet.MainAxisAlignment.CENTER
+                    )
                 )
-            )
+                page1.update()
+            elif change_res == 'Апдейт успешный!':
+                page1.add(
+                    flet.Row([
+                        flet.Text(value=change_res,color='green')], alignment=flet.MainAxisAlignment.CENTER
+                    )
+                )
+                page1.update()
+
         enter_login = flet.TextField(label='Задай login юзера, которого необходимо изменить', value='', width=300)
         enter_pole = flet.TextField(label='Задай поле которое хочешь поменять', value='', width=300)
         new_value = flet.TextField(label='Задай новое значение этого поля', value='', width=300)
@@ -163,40 +184,58 @@ def main(page1: flet.Page):
     def myuserFullInfo_here(a):
         result = myuserFullInfo(login.value)
         page1.add(
-            flet.Row(
-                [
-                    flet.Column(
-                        [
-                            flet.Text(value=('Тут пока не красиво')),
-                            flet.Text(value=result)
-                        ], alignment=flet.MainAxisAlignment.CENTER
-                    )
-                ]
+            flet.Row([
+                flet.Text(value=result)]
             )
         )
         page1.update()
 
     def changePass(a):
-        pass
+        def changePass_here(a):
+            change_result = changePass_user(login.value, enter_new_pwd.value)
+            if change_result == 'При апдейте возникла ошибка\n Скорректируйте значения и проверьте логи.':
+                page1.add(
+                    flet.Row([
+                        flet.Text(value=change_result, color='red')], alignment=flet.MainAxisAlignment.CENTER
+                    )
+                )
+                page1.update()
+            elif change_result == 'Апдейт успешный!':
+                page1.add(
+                    flet.Row([
+                        flet.Text(value=change_result, color='green')], alignment=flet.MainAxisAlignment.CENTER
+                    )
+                )
+                page1.update()
 
-    def allUsersNames_here(a):
-        result = allUsersNames()
+
+
+        page1.clean()
+        enter_new_pwd = flet.TextField(label='Задайте новый пароль',password=True, value='', width=300)
         page1.add(
             flet.Row(
-                [
-                    flet.Column(
-                        [
-                            flet.Text(value=('Тут пока не красиво')),
-                            flet.Text(value=result)
-                        ], alignment=flet.MainAxisAlignment.CENTER
-                    )
+                [flet.Column(
+                    [
+                        enter_new_pwd,
+                        flet.ElevatedButton(text='Задать!',width=200, on_click=changePass_here)
+                    ]
+                )
                 ]
             )
         )
         page1.update()
 
+    def allUsersNames_here(a):
+        result = allUsersNames()
+        page1.add(
+            flet.Row([
+                flet.Text(value=result)]
+            )
+        )
+        page1.update()
+
     # Начало самой функции MAIN
-    page1.title = "Loin-dialog"
+    page1.title = "Avtoriazation 2.0"
     page1.theme_mode = 'light'
     page1.vertical_alignment = flet.MainAxisAlignment.CENTER
     page1.horizontal_alignment = flet.MainAxisAlignment.CENTER
@@ -205,8 +244,8 @@ def main(page1: flet.Page):
     page1.window.resizable = True
 
     index = 0
-    login = flet.TextField(label='Enter Login', value='', width=300, on_change=valiadtion_avtor)
-    pwd = flet.TextField(label='Enter Password', password=True, value='', width=300, on_change=valiadtion_avtor)
+    login = flet.TextField(label='Enter Login', width=300, on_change=valiadtion_avtor)
+    pwd = flet.TextField(label='Enter Password', password=True, width=300, on_change=valiadtion_avtor)
     fio = flet.TextField(label='Enter fio', width=300, on_change=valiadtion_reg)
 
     # Кнопки главного меню
